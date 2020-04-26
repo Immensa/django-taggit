@@ -1,5 +1,3 @@
-from __future__ import unicode_literals
-
 from django.contrib import admin
 
 from taggit.models import Tag, TaggedItem
@@ -8,14 +6,11 @@ from taggit.models import Tag, TaggedItem
 class TaggedItemInline(admin.StackedInline):
     model = TaggedItem
 
+
+@admin.register(Tag)
 class TagAdmin(admin.ModelAdmin):
-    inlines = [
-        TaggedItemInline
-    ]
+    inlines = [TaggedItemInline]
     list_display = ["name", "slug"]
     ordering = ["name", "slug"]
     search_fields = ["name"]
     prepopulated_fields = {"slug": ["name"]}
-
-
-admin.site.register(Tag, TagAdmin)
